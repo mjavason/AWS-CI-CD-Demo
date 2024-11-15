@@ -130,7 +130,7 @@ git clone git@github.com:mjavason/AWS-CI-CD-Demo.git
 - Use the EC2 instance's IP address to test the server:
 
   ```bash
-  curl <EC2-IP-ADDRESS>
+  curl http://localhost:5000
   ```
 
 - Check the available ports:
