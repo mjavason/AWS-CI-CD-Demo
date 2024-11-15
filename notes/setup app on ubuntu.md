@@ -45,7 +45,7 @@ sudo apt-get install git -y
 #### Clone a Git Repository (Initial Attempt Will Fail Without SSH Key)
 
 ```bash
-git clone git@github.com:drsimplegraffiti/ec2-deploy.git
+git clone git@github.com:mjavason/AWS-CI-CD-Demo.git
 ```
 
 #### Set Up SSH Key for GitHub
@@ -53,7 +53,7 @@ git clone git@github.com:drsimplegraffiti/ec2-deploy.git
 1. **Generate an SSH Key**
 
    ```bash
-   ssh-keygen -t ed25519 -C "your_email@example.com"
+   ssh-keygen -t ed25519 -C "orjimichael4886@gmail.com"
    ```
 
    - Press `Enter` three times to accept defaults.
@@ -90,7 +90,7 @@ git clone git@github.com:drsimplegraffiti/ec2-deploy.git
 #### Clone the Repository Again (Now It Should Work)
 
 ```bash
-git clone git@github.com:drsimplegraffiti/ec2-deploy.git
+git clone git@github.com:mjavason/AWS-CI-CD-Demo.git
 ```
 
 #### Navigate to the Repository and Start the Application
@@ -109,8 +109,7 @@ git clone git@github.com:drsimplegraffiti/ec2-deploy.git
 
 3. **Install Dependencies and Start the Server**
    ```bash
-   npm install
-   npm start
+   npm i; npm run build; npm run start;
    ```
 
 #### (Optional) Use PM2 to Manage the Server
@@ -129,7 +128,15 @@ git clone git@github.com:drsimplegraffiti/ec2-deploy.git
 #### Test the Server
 
 - Use the EC2 instance's IP address to test the server:
+
   ```bash
   curl <EC2-IP-ADDRESS>
   ```
-  🎉 **Your server is now running on EC2!** Note that it is insecure as it is currently using HTTP.
+
+- Check the available ports:
+
+```bash
+netstat -tuln | grep <PORT_NUMBER>
+```
+
+🎉 **Your server is now running on EC2!** Note that it is insecure as it is currently using HTTP.

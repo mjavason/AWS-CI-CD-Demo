@@ -98,7 +98,7 @@ app.use((err: any, req: Request, res: any, next: NextFunction) => {
     .send({ success: false, status: 500, message: err.message });
 });
 
-app.listen(PORT, async () => {
+app.listen(PORT as number, '0.0.0.0', async () => {
   console.log(`Server running on port ${PORT}`);
 });
 
