@@ -1,14 +1,10 @@
-import express, {
-  type Request,
-  type Response,
-  type NextFunction,
-} from 'express';
-import 'express-async-errors';
-import cors from 'cors';
 import axios from 'axios';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import { setupSwagger } from './swagger.config';
+import 'express-async-errors';
+import express, { type Request, type NextFunction } from 'express';
 
 //#region App Setup
 const app = express();
@@ -44,7 +40,7 @@ console.log('Hello world');
  *       '400':
  *         description: Bad request.
  */
-app.get('/api', async (req: Request, res: Response) => {
+app.get('/api', async (req: Request, res: any) => {
   try {
     const result = await axios.get('https://httpbin.org');
     return res.send({
@@ -70,7 +66,7 @@ app.get('/api', async (req: Request, res: Response) => {
  *       '400':
  *         description: Bad request.
  */
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (req: Request, res: any) => {
   return res.send({ message: 'API is Live!' });
 });
 
@@ -85,13 +81,13 @@ app.get('/', (req: Request, res: Response) => {
  *       '404':
  *         description: Route not found
  */
-app.use((req: Request, res: Response) => {
+app.use((req: Request, res: any) => {
   return res
     .status(404)
     .json({ success: false, message: 'API route does not exist' });
 });
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: any, req: Request, res: any, next: NextFunction) => {
   // throw Error('This is a sample error');
   console.log(`${'\x1b[31m'}`); // start color red
   console.log(`${err.message}`);
