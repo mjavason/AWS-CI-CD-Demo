@@ -16,7 +16,7 @@ jobs:
       - name: Set up SSH for GitHub repository access
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.GITHUB_SSH_KEY }}  # Use the GitHub SSH key secret
+          ssh-private-key: ${{ secrets.GH_SSH_KEY }}  # Use the GitHub SSH key secret
 
       - name: Set up SSH for EC2 access
         uses: webfactory/ssh-agent@v0.5.3
