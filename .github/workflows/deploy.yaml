@@ -44,6 +44,9 @@ jobs:
             # Install Node.js dependencies
             npm install
 
-            # Restart the app using PM2
+            # Build the application (compiles TypeScript to JavaScript)
+            npm run build
+
+            # Start or restart the app using PM2 with the "start" script
             pm2 restart app || pm2 start npm --name "app" -- start
           EOF
