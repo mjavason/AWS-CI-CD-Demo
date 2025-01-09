@@ -28,14 +28,15 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@13.53.125.141 << 'EOF'
             cd /home/ubuntu/my-nodejs-app
 
-            # Initialize git repository if not already done
+            # If it's not a git repository, initialize it and set the remote
             if [ ! -d ".git" ]; then
               git init
               git remote add origin git@github.com:mjavason/AWS-CI-CD-Demo.git
             fi
 
             # Pull the latest changes from GitHub
-            git pull origin main
+            git fetch origin
+            git reset --hard origin/main  # Ensure the local repo matches the remote exactly
 
             # Install dependencies
             npm install
