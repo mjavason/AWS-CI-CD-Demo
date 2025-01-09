@@ -21,14 +21,8 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@13.53.125.141 << 'EOF'
-            cd /home/ubuntu
-
-            # Clone the repo using SSH URL
-            # if [ ! -d "my-nodejs-app" ]; then
-              git clone git@github.com:mjavason/AWS-CI-CD-Demo.git my-nodejs-app
-            # fi
-
-            cd my-nodejs-app
+            cd /home/ubuntu/my-nodejs-app 
+            git init
             git pull origin main
             npm install
             pm2 restart app
