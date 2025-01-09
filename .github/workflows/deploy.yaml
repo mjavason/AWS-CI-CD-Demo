@@ -26,7 +26,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@13.53.125.141 << 'EOF'
-            
+            cd /home/ubuntu/app  # Make sure to navigate to the correct directory
             git pull origin main
             npm install
             npm run start  # If using pm2 to manage your app (you can change it to your app's start command)
