@@ -3,7 +3,7 @@ name: Deploy Node.js App to EC2
 on:
   push:
     branches:
-      - main  # Deploy when pushing to the main branch (adjust if you're using a different branch)
+      - main  # Trigger on pushes to the main branch
 
 jobs:
   deploy:
@@ -13,21 +13,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up SSH
+      - name: Set up SSH for GitHub repository access
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-        
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ssh
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@13.53.125.141 << 'EOF'
-            cd /home/ubuntu/app  # Make sure to navigate to the correct directory
+            cd /home/ubuntu
+
+            # Clone the repo using SSH URL
+            # if [ ! -d "my-nodejs-app" ]; then
+              git clone git@github.com:mjavason/AWS-CI-CD-Demo.git my-nodejs-app
+            # fi
+
+            cd my-nodejs-app
             git pull origin main
             npm install
-            npm run start  # If using pm2 to manage your app (you can change it to your app's start command)
+            pm2 restart app
           EOF
