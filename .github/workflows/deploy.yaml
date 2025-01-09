@@ -21,6 +21,8 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@13.53.125.141 << 'EOF'
+            # Navigate to the application directory or create it
+            mkdir -p /home/ubuntu/my-nodejs-app
             cd /home/ubuntu/my-nodejs-app
 
             # If it's not a git repository, initialize it and set the remote
@@ -29,13 +31,13 @@ jobs:
               git remote add origin git@github.com:mjavason/AWS-CI-CD-Demo.git
             fi
 
-            # Pull the latest changes from GitHub
+            # Ensure the latest changes are pulled from GitHub
             git fetch origin
-            git reset --hard origin/main  # Ensure the local repo matches the remote exactly
+            git reset --hard origin/main  # Sync the local repository with the remote main branch
 
-            # Install dependencies
+            # Install Node.js dependencies
             npm install
 
-            # Restart the app using pm2 (or your preferred method)
-            pm2 restart app
+            # Restart the application using pm2
+            pm2 restart app || pm2 start npm --name "app" -- start
           EOF
